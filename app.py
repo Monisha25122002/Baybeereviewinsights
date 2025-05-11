@@ -3,6 +3,7 @@ from dash import html, dcc
 import pandas as pd
 import plotly.express as px
 from dash.dependencies import Input, Output
+import os
 
 # Load data
 df = pd.read_excel("reviews_with_sentiment.xlsx")
@@ -199,6 +200,7 @@ def update_dashboard(selected_categories, selected_sentiments, start_date, end_d
     return metrics, pie_fig, bar_fig, trend_fig, rating_fig, time_fig, cat_sent_fig
 
 
-# Run app
+# Run app with Render-compatible host/port
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=False)
+    port = int(os.environ.get("PORT", 8050))
+    app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)
